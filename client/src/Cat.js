@@ -29,3 +29,24 @@ function renderCat(cat) {
     })
 }
 
+function handleSubmit(){
+    document.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault()
+        let newCat = {
+            name: event.target.catName.value,
+            image: event.target.image.value,
+            breed: event.target.breed.value,
+            fluffiness: event.target.fluff.value,
+    }
+
+    fetch(CAT_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newCat)
+    })
+    .then(r => r.r.json())
+    .then(renderCat)
+
+    console.log(newCat)
+    })
+}
